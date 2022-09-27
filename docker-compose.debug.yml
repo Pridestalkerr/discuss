@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend:
+    image: "discuss:debug"
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3333:3333"
+    environment:
+      - BACKEND_PORT=3333
+    command: npx nx serve discuss-backend --verbose
+
+  frontend:
+    image: "discuss:debug"
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "4200:4200"
+    environment:
+      - FRONTEND_PORT=4200
+    command: npx nx serve discuss-frontend --verbose

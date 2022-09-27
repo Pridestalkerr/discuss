@@ -1,0 +1,31 @@
+version: 3.9
+
+services:
+  backend:
+    image: registry.pridestalkerr.com/pr1destalkerr/discuss-backend:${BACKEND_TAG}
+    container_name: discuss-backend
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    
+  frontend:
+    image: registry.pridestalkerr.com/pr1destalkerr/discuss-frontend:${FRONTEND_TAG}
+    container_name: discuss-frontend
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    depends_on:
+      - backend
+
+  nginx: 
+    image: nginx:alpine
+    container_name: discuss-nginx
+    ports:
+      - 443:443
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - ./ssl:/etc/nginx/ssl
+    environment:
+      - FRONTEND_DOMAIN=${FRONTEND_DOMAIN}
+      - BACKEND_DOMAIN=${BACKEND_DOMAIN}
+      - FRONTEND_PROXY=${FRONTEND_PROXY}
+      - BACKEND_PROXY=${BACKEND_PROXY}
+    restart: always

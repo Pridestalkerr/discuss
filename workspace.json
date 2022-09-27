@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "discuss-backend": "apps/discuss-backend",
+    "discuss-frontend": "apps/discuss-frontend",
+    "discuss-frontend-e2e": "apps/discuss-frontend-e2e"
+  }
+}
